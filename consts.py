@@ -1,18 +1,52 @@
-import configparser
-
-
 class MongoDBConstants:
+  """
+  This class contains the constants for the MongoDB connection.
+  """
+
+
   def __init__(self) -> None:
-    self.config_parser = configparser.ConfigParser()
-    self.config_parser.read('config.ini')
-    self.config_parser = self.config_parser['MONGODB']
+    self.system_level_collection_info = {
+      "connection_string": f"",
+      "database_name": "users_sample_info",
+      "collection_name": "system_level_info"
+    }
+
+    self.logs_info = {
+      "collection_name": "execution_logs"
+    }
   
+
   def get_connection_string(self) -> str:
-    connection_string = f"mongodb+srv://{self.config_parser['username']}:{self.config_parser['password']}@{self.config_parser['cluster']}.tsvu3gt.mongodb.net/"
-    return connection_string
-  
+    """
+    This method returns the connection string for the MongoDB database.
+    
+    Returns:
+    - str: The connection string for the MongoDB database.
+    """
+    
+    return self.system_level_collection_info["connection_string"]
+
+
   def get_database_name(self) -> str:
-    return self.config_parser['database']
+    """
+    This method returns the name of the database to connect to.
+    
+    Returns:
+    - str: The name of the database to connect to.
+    """
+    return self.system_level_collection_info["database_name"]
   
-  def get_collection_name(self) -> str:
-    return self.config_parser['collection']
+  
+  def get_collection_name(
+      self,
+      mode = "system_level_info") -> str:
+    """
+    This method returns the name of the collection to connect to.
+
+    Returns:
+    - str: The name of the collection to connect to.
+    """
+    
+    if mode == "logs":
+      return self.logs_info["collection_name"]
+    return self.system_level_collection_info["collection_name"]

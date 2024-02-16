@@ -3,3 +3,4 @@ __pycache__
 build
 dist
 exefilename.spec
+main.spec
