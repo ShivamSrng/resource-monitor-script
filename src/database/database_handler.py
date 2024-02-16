@@ -9,6 +9,7 @@ class DatabaseHandler:
   The class is responsible for handling the database operations.
   """
   
+
   def __init__(self) -> None:
     self.mongo_client = self.__establish_connection()
 
@@ -20,6 +21,7 @@ class DatabaseHandler:
       sleep(10)
       self.mongo_client.close()
   
+
   def __establish_connection(self) -> pymongo.MongoClient:
     """
     The function is responsible for establishing a connection with the MongoDB database.
@@ -42,7 +44,7 @@ class DatabaseHandler:
     except Exception as err:
       print("Not able to communicate: ", err)
       return False
-
+  
   
   def update_one(self, system_level_info: dict) -> None:
     """

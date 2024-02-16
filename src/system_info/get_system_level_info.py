@@ -1,14 +1,18 @@
 import psutil
 import datetime
 from getmac import get_mac_address as gmac
-from src.utilities import Utilities
 
 
 class GetSystemLevelInfo:
+  """
+  The class is responsible for getting the system level information.
+  """
+  
   
   def __init__(self) -> None:
-    self.utilities = Utilities()
-
+    pass
+  
+  
   def __get_cpu_info(self) -> dict:
     """
     The function is responsible for getting the CPU information.

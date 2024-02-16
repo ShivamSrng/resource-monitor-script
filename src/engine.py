@@ -8,6 +8,7 @@ class Engine:
   The Engine class is responsible for executing the application.
   """
 
+
   def __init__(self) -> None:
     installation_status = self.install_dependencies()
     if not installation_status:
@@ -16,6 +17,7 @@ class Engine:
     self.database = DatabaseHandler()
     self.systeminfo = GetSystemLevelInfo()
   
+
   def install_dependencies(self) -> bool:
     """
     The function is responsible for installing the dependencies required for the application.
@@ -29,6 +31,7 @@ class Engine:
     if installation_status:
       return True
     return False
+  
 
   def run(self) -> None:
     """

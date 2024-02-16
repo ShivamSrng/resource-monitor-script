@@ -7,8 +7,10 @@ class PerformInstallations:
   The PerformInstallations class is responsible for installing the dependancies required for the application.
   """
   
+  
   def __init__(self, installation_list: list) -> list:
     self.installation_list = installation_list
+  
   
   def install(self) -> bool:
     """
