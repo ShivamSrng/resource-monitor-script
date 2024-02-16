@@ -27,7 +27,7 @@ class Engine:
     
     self.utilities = Utilities()
     self.utilities.program_header(text="DETECTION OF SYSTEM LEVEL INFORMATION")
-    self.utilities.paragraph_formatter("Description: The application is responsible for detecting the system level information and communicating with the website to present you with the system level information in a user-friendly manner.Please keep the application running to get the system level information.")
+    self.utilities.paragraph_formatter("Description: The application is responsible for detecting the system level information and communicating with the website to present you with the system level information in a user-friendly manner. Please keep the application running to get the system level information.")
     mac_address = str(gmac()).upper()
     self.logger = Logs(mac_address=mac_address)
     self.utilities.program_sub_header(text="DEPENDENCY INSTALLATION")
