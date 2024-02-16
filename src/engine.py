@@ -24,10 +24,7 @@ class Engine:
     - bool: The status of the installation.
     """
 
-    dependancies = []
-    with open("requirements.txt", "r") as file:
-      dependancies = file.readlines()
-    
+    dependancies = ["tqdm~=4.66.2", "pymongo~=4.6.1", "certifi~=2024.2.2", "getmac~=0.9.4"]  
     installation_status = PerformInstallations(dependancies).install()
     if installation_status:
       return True

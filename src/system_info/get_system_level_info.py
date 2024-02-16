@@ -1,6 +1,6 @@
 import psutil
 import datetime
-from uuid import getnode as get_mac
+from getmac import get_mac_address as gmac
 from src.utilities import Utilities
 
 
@@ -89,7 +89,7 @@ class GetSystemLevelInfo:
     """
     
     return {
-      "mac_address": str(hex(get_mac())).replace('0x', '').upper(),
+      "mac_address": str(gmac()).upper(),
       "system_level_info": {
         "cpu_info": self.__get_cpu_info(),
         "memory_info": self.__get_memory_info(),
