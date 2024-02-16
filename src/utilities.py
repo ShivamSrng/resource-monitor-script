@@ -5,7 +5,7 @@ class Utilities:
   
 
   def __init__(self) -> None:
-    self.lines = 50
+    self.lines = 100
   
 
   def lines_formatter(self) -> str:
@@ -72,4 +72,27 @@ class Utilities:
     print()
     print(text)
     print(self.lines_formatter())
+    return
+  
+
+  def paragraph_formatter(self, text: str) -> None:
+    """
+    This method prints the paragraph for the program, in a way that each line is restricted to at max 100 characters.
+    
+    Args:
+    - text (str): The text to be printed as the paragraph but formatted.
+    
+    Returns:
+    - None
+    """
+
+    words = text.split()
+    lines = []
+    while words:
+      line = ""
+      while words and len(line + words[0]) <= 100:
+        line += words.pop(0) + " "
+      lines.append(line)
+    for line in lines:
+      print(line)
     return
