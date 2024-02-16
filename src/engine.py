@@ -1,3 +1,4 @@
+from getmac import get_mac_address as gmac
 from src.database.database_handler import DatabaseHandler
 from src.perform_installations import PerformInstallations
 from src.system_info.get_system_level_info import GetSystemLevelInfo
@@ -10,12 +11,13 @@ class Engine:
 
 
   def __init__(self) -> None:
+    mac_address = str(gmac()).upper()
     installation_status = self.install_dependencies()
     if not installation_status:
       print("Failed to install dependencies...")
       return
     self.database = DatabaseHandler()
-    self.systeminfo = GetSystemLevelInfo()
+    self.systeminfo = GetSystemLevelInfo(mac_address=mac_address)
   
 
   def install_dependencies(self) -> bool:

@@ -12,7 +12,6 @@ class MongoDBConstants:
     }
 
     self.logs_info = {
-      "database_name": "users_sample_info",
       "collection_name": "execution_logs"
     }
   
@@ -35,11 +34,12 @@ class MongoDBConstants:
     Returns:
     - str: The name of the database to connect to.
     """
-    
     return self.system_level_collection_info["database_name"]
   
   
-  def get_collection_name(self) -> str:
+  def get_collection_name(
+      self,
+      mode = "system_level_info") -> str:
     """
     This method returns the name of the collection to connect to.
 
@@ -47,4 +47,6 @@ class MongoDBConstants:
     - str: The name of the collection to connect to.
     """
     
+    if mode == "logs":
+      return self.logs_info["collection_name"]
     return self.system_level_collection_info["collection_name"]

@@ -1,6 +1,5 @@
 import psutil
 import datetime
-from getmac import get_mac_address as gmac
 
 
 class GetSystemLevelInfo:
@@ -9,8 +8,8 @@ class GetSystemLevelInfo:
   """
   
   
-  def __init__(self) -> None:
-    pass
+  def __init__(self, mac_address: str) -> None:
+    self.mac_address = mac_address
   
   
   def __get_cpu_info(self) -> dict:
@@ -93,7 +92,7 @@ class GetSystemLevelInfo:
     """
     
     return {
-      "mac_address": str(gmac()).upper(),
+      "mac_address": self.mac_address,
       "system_level_info": {
         "cpu_info": self.__get_cpu_info(),
         "memory_info": self.__get_memory_info(),
