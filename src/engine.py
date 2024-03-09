@@ -1,3 +1,5 @@
+import hashlib
+import datetime
 from time import sleep
 from src.logs import Logs
 from getmac import get_mac_address as gmac
@@ -27,8 +29,12 @@ class Engine:
     
     self.utilities = Utilities()
     self.utilities.program_header(text="DETECTION OF SYSTEM LEVEL INFORMATION")
-    self.utilities.paragraph_formatter("Description: The application is responsible for detecting the system level information and communicating with the website to present you with the system level information in a user-friendly manner. Please keep the application running to get the system level information.")
     mac_address = str(gmac()).upper()
+    data_time_info = str(datetime.date.today()) + str(datetime.datetime.now().strftime("%H:%M:%S"))
+    unique_id = hashlib.md5(data_time_info.encode()).hexdigest()
+    self.utilities.paragraph_formatter("Your UniqueId is: " + unique_id)
+    self.utilities.paragraph_formatter("To visualize the system level information, please visit the website and enter the UniqueId provided above.")
+    self.utilities.paragraph_formatter("Description: The application is responsible for detecting the system level information and communicating with the website to present you with the system level information in a user-friendly manner. Please keep the application running to get the system level information.")
     self.logger = Logs(mac_address=mac_address)
     self.utilities.program_sub_header(text="DEPENDENCY INSTALLATION")
     installation_status = self.install_dependencies()
@@ -40,7 +46,7 @@ class Engine:
     self.utilities.program_sub_header(text="APPLICATION EXECUTION")
     self.utilities.paragraph_formatter("Please check the website for the system level information and keep the application running in the background. If you want to stop the application, press Ctrl+C.")
     self.database = DatabaseHandler()
-    self.systeminfo = GetSystemLevelInfo(mac_address=mac_address)
+    self.systeminfo = GetSystemLevelInfo(mac_address=unique_id)
   
 
   def install_dependencies(self) -> bool:
