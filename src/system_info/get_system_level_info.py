@@ -1,5 +1,7 @@
+import re
 import psutil
 import datetime
+import subprocess
 from src.logs import Logs
 
 
@@ -129,6 +131,38 @@ class GetSystemLevelInfo:
       exit(code=1)
     return swap_memory_related_info
   
+  
+  def __get_processes(self) -> list:
+    """
+    The function is responsible for getting the processes information.
+
+    Returns:
+    - list: The processes information.
+    """
+    try:
+      processes_details = subprocess.check_output(['tasklist']).split(b"\r\n")
+      process = []
+      for task in processes_details:
+          match_criteria = re.match(b"(.+?) +(\d+) (.+?) +(\d+) +(\d+.* K).*", task)
+          if match_criteria is not None:
+              process.append(
+                {
+                  "image": str(match_criteria.group(1)).replace("b'", '').replace("'", ''),
+                  "pid": str(match_criteria.group(2)).replace("b'", '').replace("'", ''),
+                  "session_name": str(match_criteria.group(3)).replace("b'", '').replace("'", ''),
+                  "session_num": str(match_criteria.group(4)).replace("b'", '').replace("'", ''),
+                  "mem_usage": str(match_criteria.group(5)).replace("b'", '').replace("'", '')
+                  }
+              )
+    except Exception as e:
+      self.logger.add_log(
+        simplified_error="Not able to get the processes information",
+        complete_error=str(e)
+      )
+      print("Not able to get the processes information. For more information, check the logs.")
+      exit(code=1)
+    return process
+
 
   def get_all_info(self) -> dict:
     """
@@ -146,6 +180,7 @@ class GetSystemLevelInfo:
         "disk_info": self.__get_disk_info(),
         "network_info": self.__get_network_info(),
         "swap_memory_info": self.__swap_memory_info(),
+        "list_of_processes": self.__get_processes(),
         "last_time_recorded": datetime.datetime.now().strftime("%H:%M:%S")
       }
     }
