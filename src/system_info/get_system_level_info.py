@@ -97,8 +97,16 @@ class GetSystemLevelInfo:
     """
     
     try:
+      network_io_counters = psutil.net_io_counters()
       network_related_info = {
-        "network_io_counters": psutil.net_io_counters()
+        "bytes_sent": network_io_counters.bytes_sent,
+        "bytes_recv": network_io_counters.bytes_recv,
+        "packets_sent": network_io_counters.packets_sent,
+        "packets_recv": network_io_counters.packets_recv,
+        "errin": network_io_counters.errin,
+        "errout": network_io_counters.errout,
+        "dropin": network_io_counters.dropin,
+        "dropout": network_io_counters.dropout
       }
     except Exception as e:
       self.logger.add_log(
@@ -119,8 +127,14 @@ class GetSystemLevelInfo:
     """
     
     try:
+      swap_memory = psutil.swap_memory()._asdict()
       swap_memory_related_info = {
-        "swap_memory": psutil.swap_memory()._asdict()
+        "swap_memory_total": swap_memory["total"],
+        "swap_memory_used": swap_memory["used"],
+        "swap_memory_free": swap_memory["free"],
+        "swap_memory_percent": swap_memory["percent"],
+        "swap_memory_sin": swap_memory["sin"],
+        "swap_memory_sout": swap_memory["sout"]
       }
     except Exception as e:
       self.logger.add_log(
